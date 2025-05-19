@@ -62,7 +62,7 @@ class RestaurantsController < ApplicationController
 
   def restaurant_params
     # Strong params -> white listing the attributes users can give us in the form
-    params.require(:restaurant).permit(:name, :address, :rating, :category)
+    params.require(:restaurant).permit(:name, :address, :rating, :category, :opening_date)
   end
 
   def set_restaurant
