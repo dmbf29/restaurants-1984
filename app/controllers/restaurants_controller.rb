@@ -1,4 +1,16 @@
 class RestaurantsController < ApplicationController
+  before_action :set_restaurant, only: [:chef, :show, :edit, :update, :destroy]
+  # '/restaurants/top'
+  def top
+    @restaurants = Restaurant.where(rating: 5)
+    # render 'top.html.erb'
+    # render
+  end
+
+  # '/restaurants/34/chef'
+  def chef
+    # @chef_name = @restaurant.chef_name
+  end
 
   def index
     @restaurants = Restaurant.all
@@ -6,7 +18,6 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params[:id])
     # render 'show.html.erb'
   end
 
@@ -29,11 +40,9 @@ class RestaurantsController < ApplicationController
 
   def edit
     # only for the form
-    @restaurant = Restaurant.find(params[:id])
   end
 
   def update
-    @restaurant = Restaurant.find(params[:id])
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant)
     else
@@ -43,16 +52,21 @@ class RestaurantsController < ApplicationController
 
   def destroy
     # find the restaurant with the id
-    @restaurant = Restaurant.find(params[:id])
     # then destroy
     @restaurant.destroy
     # redirect somewhere
     redirect_to restaurants_path, status: :see_other
   end
 
+  private
+
   def restaurant_params
     # Strong params -> white listing the attributes users can give us in the form
-    params.require(:restaurant).permit(:name, :address)
+    params.require(:restaurant).permit(:name, :address, :rating, :category)
+  end
+
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
   end
 end
 

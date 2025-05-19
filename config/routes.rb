@@ -1,24 +1,27 @@
 Rails.application.routes.draw do
   # http_verb '/path', to: 'controller#action', as: :prefix
   # Prefix refers to the PATH only
-  # Read all -> index
-  root to: 'restaurants#index'
-  get '/restaurants', to: 'restaurants#index', as: :restaurants
-  # Create
-  # we need a page for a form
-  get '/restaurants/new', to: 'restaurants#new', as: :new_restaurant
-  # we need a place to send the data from the form
-  post '/restaurants', to: 'restaurants#create'
-  # Read one -> show
-  get '/restaurants/:id', to: 'restaurants#show', as: :restaurant
-  # Update
-  # just for the form
-  get '/restaurants/:id/edit', to: 'restaurants#edit', as: :edit_restaurant
-  # we need a place to send the data from the form
-  patch '/restaurants/:id', to: 'restaurants#update'
-  # Destroy
-  delete '/restaurants/:id', to: 'restaurants#destroy'
+  # Resouces is ONLY for the CRUD routes
+  resources :restaurants do
+    collection do
+      get 'top'
+    end
+    member do
+      get 'chef'
+    end
+    resources :reviews, only: [:new, :create]
+  end
+  resources :reviews, only: [:destroy]
+
+  # delete '/reviews/:id'
+  # get '/restaurants/:id/chef', to: 'restaurants#chef', as: :restaurant_chef
+  # get '/restaurants/top', to: 'restaurants#top', as: :top_restaurants
 end
+
+# Review.find(params[:id])
+# NON-CRUD routes
+# collection -> all restaurants (aka no ID)
+# member     -> one specific restaurant (aka need the ID)
 
 # HTTP Verbs
 # get -> READ
