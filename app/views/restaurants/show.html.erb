@@ -20,23 +20,7 @@
         </p>
       </div>
       <p class="fw-lighter opacity-75 mt-2"><%= Faker::Restaurant.description  %></p>
-      <h3>Reviews</h3>
-      <ul>
-        <% if @restaurant.reviews.any? %>
-          <% @restaurant.reviews.each do |review| %>
-            <li>
-              <%= review.content %>
-              <%= link_to review_path(review), class: 'text-secondary', data: { turbo_confirm: 'Are you sure?', turbo_method: :delete } do %>
-                <i class="fa-solid fa-circle-xmark"></i>
-              <% end %>
-            </li>
-          <% end %>
-        <% else %>
-          <li>
-            <%= link_to "Be the first to review", new_restaurant_review_path(@restaurant), class: 'text-black'  %>
-          </li>
-        <% end %>
-      </ul>
+      <%= render 'reviews/index', restaurant: @restaurant, review: @review %>
     </div>
     <div class="col-12 col-sm-4 mt-5">
       <%= render 'restaurants/side_info', restaurant: @restaurant %>

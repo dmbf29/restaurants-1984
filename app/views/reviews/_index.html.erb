@@ -1,0 +1,32 @@
+<div id="reviews">
+  <h3>Reviews</h3>
+  <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseReview" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Add a Review
+  </a>
+  <div class="collapse" id="collapseReview">
+    <div class="card card-body" data-controller="character-counter">
+      <%= simple_form_for [restaurant, review] do |f| %>
+        <!-- <input type="text" data-action="keyup->character-counter#update"> -->
+        <%= f.input :content, input_html: { data: { action: "keyup->character-counter#update" } } %>
+        <div class="form-text" data-character-counter-target="counter">0/10 characters</div>
+        <%= f.submit 'Submit', class: 'btn btn-success mt-3' %>
+      <% end %>
+    </div>
+  </div>
+  <ul>
+    <% if restaurant.reviews.any? %>
+      <% restaurant.reviews.each do |review| %>
+        <li>
+          <%= review.content %>
+          <%= link_to review_path(review), class: 'text-secondary', data: { turbo_confirm: 'Are you sure?', turbo_method: :delete } do %>
+            <i class="fa-solid fa-circle-xmark"></i>
+          <% end %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>
+        <%= link_to "Be the first to review", new_restaurant_review_path(restaurant), class: 'text-black'  %>
+      </li>
+    <% end %>
+  </ul>
+</div>

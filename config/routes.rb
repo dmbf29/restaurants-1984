@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # http_verb '/path', to: 'controller#action', as: :prefix
   # Prefix refers to the PATH only
   # Resouces is ONLY for the CRUD routes
+  root to: 'restaurants#index'
   resources :restaurants do
     collection do
       get 'top'
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
     member do
       get 'chef'
     end
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:create]
   end
   resources :reviews, only: [:destroy]
 

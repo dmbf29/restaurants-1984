@@ -15,9 +15,14 @@ class RestaurantsController < ApplicationController
   def index
     @restaurants = Restaurant.all
     # render 'index.html.erb'
+    respond_to do |format|
+      format.html
+      format.json { render json: @restaurants }
+    end
   end
 
   def show
+    @review = Review.new
     # render 'show.html.erb'
   end
 
@@ -29,6 +34,9 @@ class RestaurantsController < ApplicationController
   def create
     # to create the instance from the form data
     @restaurant = Restaurant.new(restaurant_params)
+    # dates = params[:restaurant][:opening_date].split(' to ')
+    # @restaurant.start_date = dates.first
+    # @restaurant.end_date = dates.last
     if @restaurant.save
       # when it saves -> go to the restaurants show page
       redirect_to restaurant_path(@restaurant)
