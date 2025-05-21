@@ -1,8 +1,10 @@
 <div id="reviews">
-  <h3>Reviews</h3>
-  <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseReview" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Add a Review
-  </a>
+  <div class="d-flex align-items-center mb-2">
+    <h3 class='mb-0'>Reviews</h3>
+    <a class="text-secondary ms-3" data-bs-toggle="collapse" href="#collapseReview" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <i class="fa-solid fa-circle-plus"></i>
+    </a>
+  </div>
   <div class="collapse" id="collapseReview">
     <div class="card card-body" data-controller="character-counter">
       <%= simple_form_for [restaurant, review] do |f| %>
@@ -25,7 +27,7 @@
       <% end %>
     <% else %>
       <li>
-        <%= link_to "Be the first to review", new_restaurant_review_path(restaurant), class: 'text-black'  %>
+        No reviews yet.
       </li>
     <% end %>
   </ul>

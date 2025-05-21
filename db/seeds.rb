@@ -13,7 +13,7 @@ end
 
 puts "Creating #{CHEFS.count} Restaurants..."
 CHEFS.shuffle.each do |name|
-  user = User.create!(email: "#{name.downcase}@lewagon.com", password: '123123', name: name)
+  user = User.create!(email: "#{name.downcase}@lewagon.org", password: '123123', name: name)
   restaurant_name = Faker::Restaurant.unique.name
   Restaurant.create!(
     name: "#{name}'s #{restaurant_name}",
