@@ -66,6 +66,7 @@ end
 
 # Custom Added
 gem "bootstrap", "~> 5.3"
+gem "devise"
 gem "faker"
 gem "font-awesome-sass", "~> 6.1"
 gem "geocoder"

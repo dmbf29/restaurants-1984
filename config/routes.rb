@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # http_verb '/path', to: 'controller#action', as: :prefix
   # Prefix refers to the PATH only
   # Resouces is ONLY for the CRUD routes

@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
   # associations
+  belongs_to :user
   # dependent: :destroy ->
   has_many :reviews, dependent: :destroy # creates a method -> restaurant.reviews
   # validations

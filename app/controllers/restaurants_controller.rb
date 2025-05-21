@@ -1,5 +1,7 @@
 class RestaurantsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show, :top, :chef]
   before_action :set_restaurant, only: [:chef, :show, :edit, :update, :destroy]
+
   # '/restaurants/top'
   def top
     @restaurants = Restaurant.where(rating: 5)
@@ -45,6 +47,7 @@ class RestaurantsController < ApplicationController
     # dates = params[:restaurant][:opening_date].split(' to ')
     # @restaurant.start_date = dates.first
     # @restaurant.end_date = dates.last
+    @restaurant.user = current_user
     if @restaurant.save
       # when it saves -> go to the restaurants show page
       redirect_to restaurant_path(@restaurant)
