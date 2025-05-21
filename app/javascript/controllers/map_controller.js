@@ -17,12 +17,35 @@ export default class extends Controller {
       style: "mapbox://styles/dmbf29/cju0idn0r0a9t1fpe55d60sdg",
     });
     this.#addMarkersToMap();
+    this.#fitUserLocation();
     this.#fitMapToMarkers();
-    // this.#fitUserLocation();
     this.map.addControl(
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
+      })
+    );
+  }
+
+  #fitUserLocation() {
+    // Add a marker manually...
+    navigator.geolocation.getCurrentPosition((position) => {
+      localStorage.setItem("lat", position.coords.latitude);
+      localStorage.setItem("long", position.coords.longitude);
+      new mapboxgl.Marker()
+        .setLngLat([position.coords.longitude, position.coords.latitude])
+        .addTo(this.map);
+    });
+    // Add a current location using Mapbox ...
+    this.map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        // When active the map will receive updates to the device's location as it changes.
+        trackUserLocation: true,
+        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+        showUserHeading: true,
       })
     );
   }
