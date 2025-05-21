@@ -14,6 +14,14 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+    @markers = @restaurants.geocoded.map do |restaurant|
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
+        info_window_html: render_to_string(partial: "restaurants/info_window", locals: { restaurant: restaurant }),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
     # render 'index.html.erb'
     respond_to do |format|
       format.html

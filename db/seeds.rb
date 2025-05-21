@@ -19,7 +19,7 @@ CHEFS.shuffle.each do |name|
     address: "日本, 〒153-0063 東京都目黒区 目黒#{rand(1..3)}丁目#{rand(1..10)}番#{rand(1..3)}号",
     category: get_category(restaurant_name),
     chef_name: name,
-    openinig_date: Date.today - rand(10..30)
+    opening_date: Date.today - rand(10..30)
   )
 end
 puts "... created #{Restaurant.count} restaurants"

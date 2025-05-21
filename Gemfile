@@ -15,7 +15,7 @@ gem "sqlite3", ">= 1.4"
 gem "puma", ">= 5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+gem "importmap-rails", "~> 1.2.3"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -44,6 +44,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -67,6 +68,7 @@ end
 gem "bootstrap", "~> 5.3"
 gem "faker"
 gem "font-awesome-sass", "~> 6.1"
+gem "geocoder"
 gem 'ostruct'
 gem "sassc-rails"
 gem "simple_form"
