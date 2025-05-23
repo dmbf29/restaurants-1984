@@ -17,11 +17,15 @@
   <div class="d-flex">
     <!-- edit and delete here-->
     <p>
-      <%= link_to edit_restaurant_path(restaurant), class: 'text-dark text-decoration-none' do %>
-        <i class="fas fa-pencil-alt mx-1"></i>
+      <% if policy(@restaurant).edit? %>
+        <%= link_to edit_restaurant_path(restaurant), class: 'text-dark text-decoration-none' do %>
+          <i class="fas fa-pencil-alt mx-1"></i>
+        <% end %>
       <% end %>
-      <%= link_to restaurant_path(restaurant), class: 'text-dark text-decoration-none', data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{restaurant.name}" } do %>
-        <i class="fas fa-trash mx-1"></i>
+      <% if policy(@restaurant).destroy? %>
+        <%= link_to restaurant_path(restaurant), class: 'text-dark text-decoration-none', data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{restaurant.name}" } do %>
+          <i class="fas fa-trash mx-1"></i>
+        <% end %>
       <% end %>
     </p>
   </div>

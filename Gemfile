@@ -71,5 +71,6 @@ gem "faker"
 gem "font-awesome-sass", "~> 6.1"
 gem "geocoder"
 gem 'ostruct'
+gem "pundit"
 gem "sassc-rails"
 gem "simple_form"

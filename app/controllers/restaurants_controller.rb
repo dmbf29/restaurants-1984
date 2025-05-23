@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show, :top, :chef]
+  skip_before_action :authenticate_user!, only: [:index, :top, :chef]
   before_action :set_restaurant, only: [:chef, :show, :edit, :update, :destroy]
 
   # '/restaurants/top'
@@ -15,7 +15,8 @@ class RestaurantsController < ApplicationController
   end
 
   def index
-    @restaurants = Restaurant.all
+    # @restaurants = Restaurant.all
+    @restaurants = policy_scope(Restaurant)
     @markers = @restaurants.geocoded.map do |restaurant|
       {
         lat: restaurant.latitude,
@@ -32,13 +33,16 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    # @restaurant = Restaurant.find(params[:id])
     @review = Review.new
+    authorize @restaurant
     # render 'show.html.erb'
   end
 
   def new
     # only for the form
     @restaurant = Restaurant.new
+    authorize @restaurant
   end
 
   def create
@@ -48,6 +52,7 @@ class RestaurantsController < ApplicationController
     # @restaurant.start_date = dates.first
     # @restaurant.end_date = dates.last
     @restaurant.user = current_user
+    authorize @restaurant
     if @restaurant.save
       # when it saves -> go to the restaurants show page
       redirect_to restaurant_path(@restaurant)
@@ -59,9 +64,12 @@ class RestaurantsController < ApplicationController
 
   def edit
     # only for the form
+    # # @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
   end
 
   def update
+    authorize @restaurant
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant)
     else
@@ -72,6 +80,7 @@ class RestaurantsController < ApplicationController
   def destroy
     # find the restaurant with the id
     # then destroy
+    authorize @restaurant
     @restaurant.destroy
     # redirect somewhere
     redirect_to restaurants_path, status: :see_other
